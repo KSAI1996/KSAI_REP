@@ -1,0 +1,40 @@
+CREATE TABLE [dbo].[PipelineOrchestrator_FabricLakehouse](
+	[pipelinename] [nvarchar](100) NOT NULL,
+	[sqlsourceschema] [nvarchar](50) NOT NULL,
+	[sqlsourcetable] [nvarchar](50) NOT NULL,
+	[sqlsourcedatecolumn] [nvarchar](50) NULL,
+	[sourcekeycolumn] [nvarchar](50) NULL,
+	[sqlstartdate] [datetime] NULL,
+	[sqlenddate] [datetime] NULL,
+	[sinktablename] [nvarchar](100) NULL,
+	[loadtype] [nvarchar](15) NOT NULL,
+	[skipload] [bit] NOT NULL,
+	[batchloaddatetime] [datetime2](7) NULL,
+	[loadstatus] [nvarchar](15) NULL,
+	[rowsread] [int] NULL,
+	[rowscopied] [int] NULL,
+	[deltalakeinserted] [int] NULL,
+	[deltalakeupdated] [int] NULL,
+	[sqlmaxdatetime] [datetime2](7) NULL,
+	[pipelinestarttime] [datetime2](7) NULL,
+	[pipelineendtime] [datetime2](7) NULL
+) ON [PRIMARY]
+GO
+
+
+INSERT INTO [dbo].[PipelineOrchestrator_FabricLakehouse] 
+([pipelinename], [sqlsourceschema], [sqlsourcetable], [sqlsourcedatecolumn], [sourcekeycolumn], [sqlstartdate], [sqlenddate], [sinktablename], [loadtype], [skipload])
+SELECT
+'Orchestration Pipeline','dbo','Address', 'CreatedOn', 'AddressID','2013-01-01 00:00:00',NULL,'Address','full',0
+UNION SELECT
+'Orchestration Pipeline','dbo','Country','LastEdited','Country', NULL, '2013-01-01 00:00:00','2024-04-05 12:22:12','Country','incremental',0
+UNION SELECT
+'Orchestration Pipeline','dbo','Customer','CreatedOn','CustomerID','2013-01-01 00:00:00',NULL,'Customer','full',0
+UNION SELECT
+'Orchestration Pipeline','dbo','HistoricSales','CreatedOn','ProductID','2013-01-01 00:00:00',NULL,'HistoricSales','full',0
+UNION SELECT
+'Orchestration Pipeline','dbo','OrderDetails','CreatedOn','OrderID','2013-01-01 00:00:00',NULL,'OrderDetails','full',0
+UNION SELECT
+'Orchestration Pipeline','dbo','Orders','CreatedOn','OrderID',  NULL, '2013-01-01 00:00:00',NULL,'Orders','full',0
+UNION SELECT
+'Orchestration Pipeline','dbo','Sales','LastEdited','CustomerID', '2013-01-01 00:00:00', '2024-04-05 12:25:15','Orders','incremental',0
